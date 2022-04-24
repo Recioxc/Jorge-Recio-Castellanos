@@ -1,10 +1,18 @@
-import logo from './logo.svg';
+
 import './App.css';
+import NavBar from './components/NavBar';
+import CartWidget from './components/CartWidget';
+import ItemListContainer from './components/ItemListContainer';
 
 function App() {
   return (
-    <h1>Hola mundo!</h1>
+    <>  
+    <NavBar></NavBar>
+    <ItemListContainer></ItemListContainer>
+
+    </>
   );
+ 
 }
 
 export default App;
