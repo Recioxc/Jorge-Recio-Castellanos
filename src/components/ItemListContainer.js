@@ -1,14 +1,8 @@
- const ItemListContainer =() =>{
+ const ItemListContainer =({Saludo}) =>{
 return(
-    <div class="hero min-h-screen bg-base-200">
-    <div class="hero-content text-center">
-      <div class="max-w-md">
-        <h1 class="text-5xl font-bold">HOLA!"</h1>
-        <p class="py-6">Pagina en construción</p>
-        
-      </div>
-    </div>
-  </div>
+    <>
+      <div class="hero min-h-screen"><h1 class="mb-5 text-5xl font-bold">{Saludo}</h1></div>  
+    </>
 )
 
  }
