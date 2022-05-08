@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
-import { Vinyl as VinylData } from "./data/Vinyls";
+import { Item as VinylData } from "./Item";
 import VinylCard from "./VinylCard";
 
 const VinylContainer = () => {
 
-  const [Vinyl, setVinyl] = useState([])
+  const [Item, setVinyl] = useState([])
 
   useEffect(() => {
     const getVinyl = new Promise( (resolve, reject) => {
       setTimeout( () =>{
         resolve(VinylData)
-        // reject('error en la promesa')
-      }, 2000)
+         }, 2000)
     })
 
     getVinyl.then( (result) => {
@@ -25,7 +24,7 @@ const VinylContainer = () => {
 
   return (
     <div>
-      {Vinyl.map( Vinyl => <VinylCard key={Vinyl.id} VinylData={Vinyl}/> )}
+      {Item.map( Item => <VinylCard key={Item.id} VinylData={Item}/> )}
     </div>
   )
 }
