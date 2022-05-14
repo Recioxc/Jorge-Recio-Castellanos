@@ -1,8 +1,8 @@
-import logos from './logo.png';
-const nOtf =() =>{
+
+const NotFound404 =() =>{
     return(
         <>
-        <div><img src={logos}alt="logos"/></div>
+       <div><h1>Pagina no econtrada</h1></div>
        </>)
  }
- export default nOtf
+ export default NotFound404
