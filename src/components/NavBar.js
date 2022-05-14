@@ -13,7 +13,7 @@ return(
     
     </a>
     <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-      <a class="mr-5 hover:text-gray-900">Ventas</a>
+      <Link to ='/vinyls' class="mr-5 hover:text-gray-900">Discos</Link>
       <a class="mr-5 hover:text-gray-900">Bandas</a>
       <a class="mr-5 hover:text-gray-900">Informacion</a>
       <a class="mr-5 hover:text-gray-900">Contacto</a>
