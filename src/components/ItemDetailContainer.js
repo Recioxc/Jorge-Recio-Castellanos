@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
+import { CartProivider } from "../Context/CartContext"
 import { Item as VinylData } from "./Item"
 import {getDetail} from  "./ItemDetail"
+
 
 const ItemDetailContainer = () => {
 
@@ -22,6 +24,7 @@ const ItemDetailContainer = () => {
   
   return (
     <>
+    <CartProivider>
       <div className="card card-compact w-96 bg-base-100 shadow-xl">
           <div class="card-body">
     <h2  class="card-title">{Vinyl.name}</h2>
@@ -32,7 +35,10 @@ const ItemDetailContainer = () => {
     <div  class="card-actions justify-end">
     </div>
     </div>
+    
       </div>
+      
+      </CartProivider>
     </>
   )
   }
