@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import { CartProivider } from "../Context/CartContext"
+import { cartProvider } from "../Context/CartContext"
 import { Item as VinylData } from "./Item"
 import {getDetail} from  "./ItemDetail"
 
@@ -24,7 +24,7 @@ const ItemDetailContainer = () => {
   
   return (
     <>
-    <CartProivider>
+    <cartProvider>
       <div className="card card-compact w-96 bg-base-100 shadow-xl">
           <div class="card-body">
     <h2  class="card-title">{Vinyl.name}</h2>
@@ -38,7 +38,7 @@ const ItemDetailContainer = () => {
     
       </div>
       
-      </CartProivider>
+      </cartProvider>
     </>
   )
   }

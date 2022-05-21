@@ -1,44 +1,27 @@
-import React from 'react';
-import { useState } from 'react';
-
-
+import React, { useState } from 'react';
 
 const ItemCount = ({ initial, stock, onAdd }) => {
-  //hook de estado
-  const [qty, setQty] = useState(initial);
-  const [showButton, setshowButton] = useState(false);
+  const [count, setCount] = useState(initial);
 
-  
-
-  const addItem = (num) => {
-    setQty(qty + num);
+  const handleSubstract = () => {
+    if (count > initial) {
+      setCount((counter) => counter - 1);
+    }
+  };
+  const handleAdd = () => {
+    if (count < stock) {
+      setCount((counter) => counter + 1);
+    }
   };
 
   return (
     <div>
       <div>
-        <button
-          onClick={() => addItem(-1)}
-          disabled={qty === initial ? true : null}
-        >
-          -
-        </button>
-        <span>{qty}</span>
-        <button
-          onClick={() => addItem(+1)}
-          disabled={qty === stock ? true : null}
-        >
-          +
-        </button>
+        <button className="btn btn-outline-primary btn-sm" onClick={handleSubstract}>-</button>
+        <span className="btn-sm text-xl font-bold">{count}</span>
+        <button className="btn btn-outline-primary btn-sm" onClick={handleAdd}>+</button>
       </div>
-
-      <button
-        
-        onClick={() => {onAdd(qty); setshowButton(true)}}
-        disabled={stock === 0 ? true : null}
-      >
-        Finalizar compra
-      </button>
+      <button onClick={() => onAdd(count)} className="btn btn-primar">Agregar al carrito</button>
     </div>
   );
 };

@@ -6,11 +6,12 @@ import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
 import ItemDetailContainer from '../src/components/ItemDetailContainer';
 import NotFound404 from './components/NotFound';
 import Cart from '../src/components/Cart';
-import { CartProivider } from './Context/CartContext';
+import { cartProvider } from './Context/CartContext';
+
 function App() {
   return (
     
-    <CartProivider>  
+    <cartProvider>  
    
     <Router>
             <NavBar/>
@@ -18,11 +19,13 @@ function App() {
               <Route exact path='/' element={<ItemListContainer/>}/>
               <Route exact path='/vinyls' element={<ItemListContainer/>}/>
               <Route exact path='/vinyls/:IdVinyl' element={<ItemDetailContainer/>}/>
+              <Route path='/genere/:gen' element={<ItemListContainer/>}/>
+              <Route path='/cart' element={<Cart/>}/>
               <Route path='*' element={<NotFound404/>}/>
             </Routes>
     </Router>
      
-    </CartProivider>
+    </cartProvider>
   );
  
 }
