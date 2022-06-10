@@ -1,15 +1,22 @@
-import dmoon from "../data/dmon.png";
-import mpup from "../data/mpuppets.jpg";
-import nmind from "../data/nmind.jpg";
-import paranoid from "../data/paranoid.jpg";
-import mhotel from "../data/mhotel.jpg";
-import softp from "../data/softp.jpg";
 
-export const Item = [
-    {id: 1, name:'Dark Side Of The Moon', Artista:'Pink Floyd',price:'$1,599',pictureurl:<img src={dmoon}/>,stock:10,genere:'rock'},
-    {id: 2, name:'Master of puppets', Artista:'Metallica', price:'$2,599',pictureurl:<img src={mpup}/>,stock:10,genere:'rock'},
-    {id: 3, name:'Morrison Hotel', Artista:'The Doors', price:'$3,499',pictureurl:<img src={mhotel}/>,stock:10,genere:'rock'},
-    {id: 4, name:'Soft Parade', Artista:'The Doors', price:'$2,799',pictureurl:<img src={softp}/>,stock:10,genere:'rock'},
-    {id: 5, name:'Nevermind', Artista:'Nirvana',price:'$4,599',pictureurl:<img src={nmind}/>,stock:10,genere:'grunge'},
-    {id: 6, name:'Paranoid', Artista:'Black Sabbath', price:'$7,299',pictureurl:<img src={paranoid}/>,stock:10,genere:'rock'},
-]
+import {Link} from 'react-router-dom'
+
+
+export const Item = ({Name,Artist,img,id,Price}) => {
+
+    return (
+        <div className="card w-96 bg-base-100 shadow-xl">
+          
+        <div class="card-body">
+  <h2 class="card-title">{Name}</h2>
+  <h3 class="card-title">{Artist}</h3>
+  <img src={img} className="img" alt={Name}/>
+  <p>{Price}</p>
+  <div class="card-actions justify-end">
+  <button class="btn btn-primary"><Link to={`/vinyls/${id}`}>Mas información</Link></button>
+  
+  </div>
+</div>
+    </div>
+    )
+}

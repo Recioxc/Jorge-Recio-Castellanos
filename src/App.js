@@ -1,9 +1,9 @@
 
 import './App.css';
 import NavBar from './components/NavBar';
-import ItemListContainer from './components/ItemListContainer';
 import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
-import ItemDetailContainer from '../src/components/ItemDetailContainer';
+import {ItemListContainer} from './components/ItemListContainer';
+import { ItemDetailContainer } from './components/ItemDetailContainer';
 import NotFound404 from './components/NotFound';
 import Cart from '../src/components/Cart';
 import { cartProvider } from './Context/CartContext';

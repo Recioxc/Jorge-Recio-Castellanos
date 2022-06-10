@@ -1,11 +1,11 @@
+import React from 'react'
+import {Item} from './Item'
 
-import { Item as VinylData } from "./Item";
+export const ItemList = ({items}) => {
 
-export const getVinyl = () => {
-      return  new Promise( (resolve, reject) => {
-      setTimeout( () =>{
-        resolve(VinylData)
-         }, 2000)
-    })
-  
-};
+    return (
+        <div className='grid'>
+            {items.map((products) => <Item key={products.id} {...products}/>)}            
+        </div>
+    )
+}
