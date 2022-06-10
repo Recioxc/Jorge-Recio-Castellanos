@@ -1,49 +1,56 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import VinylCard from "./VinylCard"
-import { Item as VinylData } from "./Item"
+import React, {useState, useEffect} from 'react';
+import {ItemList} from "./ItemList";
+import { useParams } from 'react-router';
+import { Loader } from './Loader';
+import {collection, getDocs, query, where} from 'firebase/firestore/lite';
+import { db } from './Firebase';
 
-const ItemListContainer = () => {
 
-  let [vinyls, setItem] = useState([])
-  const { gen } = useParams()
-  const [cargando, setCargando] = useState( [] )
-  
-  useEffect( ()=>{
-    const getItems = new Promise( (resolve,reject) => {
-      setCargando(true)
-      setTimeout(() => {
-            if (gen) {
-                console.log('Hay itemCat')
-                console.log(gen)
-                resolve(VinylData.filter( i =>i.genere === gen))
-                reject('error')
-            } else {
-                resolve(VinylData)
-                console.log('NO hay itemCat')
+export const ItemListContainer = () => {
+
+    const [loading, setLoading] = useState(false)
+    const [vinyls, setVinyls] = useState([])
+
+    const {genereId} = useParams()
+
+    useEffect(() => {
+        setLoading(true)
+        const Vinylr = collection(db, 'items')
+        const q = genereId ? query(Vinylr, where('Genere', '==', genereId )) : Vinylr
+
+        getDocs(q)
+            .then( (collection) => {
+                
+                const items = collection.docs.map((doc)=> ({
+                    id: doc.id,
+                    ...doc.data()
+                }))
+                console.log(items)
+                setVinyls(items)
+            })
+            .catch ((error)=> {
+                console.log(error)
+            })
+            .finally (()=> {
+                setLoading(false)
+            })
+    }, [genereId])
+
+    return (
+        <div>
+            {
+                loading 
+                    ? 
+                     
+                        <Loader/>
+                    : 
+                        <>
+                            <ItemList items={vinyls}/>
+                            <hr className='divider'/>
+                            
+                        </>
             }
-      }, 2000)
-    })
-    
-    getItems.then( data => {
-        setCargando(false)
-        setItem(data)
-        console.log(vinyls)
-      })
-  }, [gen])
 
-  return (
-    <div class="flex w-full flex-wrap justify-center items-stretch mt-10">
-      {cargando ?
-      <div class="flex w-screen items-center justify-center space-x-2">
-        <svg role="status" class="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-yellow-400" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-            
-        </svg>      
-      </div>
-      :
-       vinyls.map( i => <VinylCard key={i.id} VinylData={i}/>)
-      }
-    </div>
-  )
+        </div>
+    )
 }
-export default ItemListContainer
