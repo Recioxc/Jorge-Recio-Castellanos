@@ -15,8 +15,8 @@ return(
     </a>
     <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
       <Link to ='/vinyls' class="mr-5 hover:text-gray-900">Discos</Link>
-      <Link to ='/genere/rock' class="mr-5 hover:text-gray-900">Rock</Link>
-      <Link to ='/genere/grunge' class="mr-5 hover:text-gray-900">Grunge</Link>
+      <Link to ='/genere/Psychedelic rock' class="mr-5 hover:text-gray-900">Rock</Link>
+      <Link to ='/genere/Grunge' class="mr-5 hover:text-gray-900">Grunge</Link>
 
       <a class="mr-5 hover:text-gray-900">Contacto</a>
     </nav>

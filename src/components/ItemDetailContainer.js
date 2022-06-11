@@ -1,38 +1,41 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { db } from "./Firebase";
+import ItemDetail from "./ItemDetail"
+import { Loader } from "./Loader";
+import { Link } from "react-router-dom";
+import {collection, getDocs, query, where} from 'firebase/firestore/lite';
 import { doc, getDoc } from "firebase/firestore";
-import {ItemDetail} from "./ItemDetail"
- 
+import { db } from './Firebase';
+
 export const ItemDetailContainer = () => {
 
-    const [Loader, setLoading] = useState(false)
-    const [Vinyl, setItem] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [item, setItem] = useState(null)
 
-    const { genereId } = useParams()
+  const { itemId } = useParams()
 
-    useEffect(() => {
-        setLoading(true)
-        const docRef = doc(db, "items", genereId)
-        getDoc(docRef)
-            .then(doc => {
-                setItem({ id: doc.id, ...doc.data() })
-            })
-            .finally(() => {
-                setLoading(false)
-            })
-    }, [genereId])
+  useEffect(() => {
+      setLoading(true)
+      const docRef = doc(db, "items", itemId)
+      getDoc(docRef)
+          .then(doc => {
+              setItem({ id: doc.id, ...doc.data() })
+          })
+          .finally(() => {
+              setLoading(false)
+          })
+  }, [])
 
-    return (
+  return (
 
-        <>
-            {
-                Loader
-                    ? <Loader />
-                    : <ItemDetail {...Vinyl} />
-            }
-        </>
+      <>
+          {
+              loading
+                  ? <Loader />
+                  : <ItemDetail {...item} />
+          }
+      </>
 
-    )
+  )
 
 }
