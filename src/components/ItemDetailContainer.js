@@ -3,39 +3,42 @@ import { useParams } from "react-router-dom"
 import ItemDetail from "./ItemDetail"
 import { Loader } from "./Loader";
 import { Link } from "react-router-dom";
-import {collection, getDocs, query, where} from 'firebase/firestore/lite';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore/lite";
 import { db } from './Firebase';
 
-export const ItemDetailContainer = () => {
+const ItemDetailContainer = () => {
 
-  const [loading, setLoading] = useState(false)
-  const [item, setItem] = useState(null)
+    const [ product, setProduct] = useState()
+    const [ loading, setLoading ]  = useState (true)
+    const { paramId } = useParams();
+    
+    useEffect( () => {
+        
+        
+        setLoading(true)
+        getDoc(doc(db, 'items', paramId )).then ((querySnaptshot) => {
+            const product = { id: querySnaptshot.id, ...querySnaptshot.data() }
+            setProduct(product)
+        }).catch ((error) => {
+            console.log(error)
+        }).finally( () =>{
+            setLoading(false)
+        })
+        
+        return (() =>{
+            setProduct()
+        })
 
-  const { itemId } = useParams()
+    }, [paramId])
 
-  useEffect(() => {
-      setLoading(true)
-      const docRef = doc(db, "items", itemId)
-      getDoc(docRef)
-          .then(doc => {
-              setItem({ id: doc.id, ...doc.data() })
-          })
-          .finally(() => {
-              setLoading(false)
-          })
-  }, [])
 
-  return (
-
-      <>
-          {
-              loading
-                  ? <Loader />
-                  : <ItemDetail {...item} />
-          }
-      </>
-
-  )
-
+    return (
+        <div>
+            { loading ? 
+                <Loader />
+                : <ItemDetail product={product} />}
+        </div>
+    )
 }
+
+export default ItemDetailContainer

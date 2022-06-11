@@ -1,56 +1,55 @@
 import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
-import { cartContext } from "../Context/CartContext"
 import ItemCount from "./ItemCount"
+import CartContext from "../Context/CartContext"
 
-const ItemDetail = ({ item }) => {
-    const [showButton, setShowButton] = useState(0);
-    const { addItem } = cartContext();
-  
-    const onAdd = (quantityToAdd) => {
-      setShowButton(quantityToAdd);
-      addItem(item, quantityToAdd);
-    };
-  
-    return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-lg-2 col-xs-12 padding"></div>
-          <div className="col-lg-4 col-xs-12 image card">
-            <img
-              className="img-fluid"
-              src={item.img}
-              alt={item.Name}
-            />
+const ItemDetail = ( { product }) => {
+ 
+  const [ quantity, setQuantity ] = useState(0)
+  const { addItem } = useContext( CartContext )
+
+  const addToCart = ( quantity ) => {
+      if (quantity !== 0 ) {
+          setQuantity( quantity )
+          addItem( product, quantity)
+          
+  }
+  }
+  return (
+      <article>
+           <div className='container p-5 m-3 backgroundDetail'>
+              <div className='row justify-content-center'>
+              <h2> { product?.Name } </h2>
+                  <div className='col col-md-6'>
+                      <img className="card-img-top" src={product?.img} alt={product?.Name} />
+                  </div>
+                  <h3>  {product?.Artist} </h3>
+                  <div className='col col-md-6'>
+                     
+                    
+                      <p>  ${product?.Price } </p>
+                      <div>
+                      </div>
+                      <div>
+                          {
+                              quantity === 0
+                              ? <ItemCount product={product} onAdd={(quantity) => addToCart (quantity)} />
+                              :   <div className="card mt-3 mb-3">
+                                      <div className="card-body text-center">
+                                          <small>Tienes <b>{quantity}</b> Vinyles en el carrito.</small><br />
+                                          <Link to={'/cart'}>
+                                              <button type="button" className="btn btn-primary m-2">Finalizar la Compra</button>
+                                          </Link>
+                                      </div>
+                                  </div>
+                          }
+                      </div>
+                  </div>
+
+              </div>
           </div>
-  
-          <div className="col-lg-4 col-xs-12 properties">
-            <div className="properties-title">{item.title}</div>
-            <div className="properties-title">${item.price}</div>
-            <div className="properties-description">{item.description}</div>
-            <div className="properties-title">Stock disponible: {item.stock}</div>
-            {showButton === 0 ? (
-              <ItemCount
-                initial={1}
-                stock={item.stock}
-                onAdd={onAdd}
-                item={item}
-              />
-            ) : (
-              <>
-                <Link to={"/cart"}>
-                  <button label="Terminar compra" type="primary" />
-                </Link>
-                <Link to={"/"}>
-                  <button label="Ver más productos" type="secondary" />
-                </Link>
-              </>
-            )}
-          </div>
-          <div className="col-lg-2 col-xs-12 padding "></div>
-        </div>
-      </div>
-    );
-  };
-  
-  export default ItemDetail;
+      </article>
+  )
+}
+
+export default ItemDetail
